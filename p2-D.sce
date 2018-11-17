@@ -40,7 +40,7 @@ function seqPCM = codificacaoPCM(sinalDisc, min,max, qtndBits)
 	limInferior = min+0.5*excursao/totalNiveis
 	passo = excursao/numero_de_niveis
 	limSuperior = max-0.5*excursao/totalNiveis
-	niveis =limInferiori:passo: nivel_max-0.5*excursao/numero_de_niveis
+	niveis =limInferior:passo: limSuperior
 
     for k=1:length(sinalDisc)
         for j=1:totalNiveis
