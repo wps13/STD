@@ -81,7 +81,11 @@ endfunction
 
 sinalAmostra = amostragemSinal(t,S, tempoAmostragem)
 
-sinalDiscretizado = quantizacaoMidrise(sinalAmostra,0,1,3)
+min = 
+max = 
+bits =
+
+sinalDiscretizado = quantizacaoMidrise(sinalAmostra,min,max,bits)
 
 //plotar o sinal msg, amostrado e discretizado
 plot2d3(t,S) //plot do sinal mensagem
@@ -92,7 +96,7 @@ plot2d3(t,sinalDiscretizado)
 
 sinalFinal = amostragem_sinal(t,x,periodo)
 
-sequenciaPCM = codificacaoPCM(sinalDiscretizado,-1,1,3)
+sequenciaPCM = codificacaoPCM(sinalDiscretizado,min,max,bits)
 
 //plotar a sequencia(tempo e amplitude)
 
