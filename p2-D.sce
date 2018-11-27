@@ -45,7 +45,7 @@ function seqPCM = codificacaoPCM(sinalDisc, min,max, qtndBits)
     for k=1:length(sinalDisc)
         for j=1:totalNiveis
         b(j) = abs(sinalDisc(k)-niveis(j));
-        i = find(b==min(b))
+        i = find(b==min(b)) //erro
         end
         palavra_pcm_como_string(k) = dec2bin(i-1);
         for j=1:numero_de_bits
