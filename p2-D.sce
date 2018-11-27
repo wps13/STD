@@ -1,13 +1,13 @@
 //sinal 1 - Estela
-load('/home/willane/Downloads/p2STD/xa_10_1.sod') 
+load('./xa_10_1.sod') 
 S1 = x_a
 
 //sinal 2- Lais
-load('/home/willane/Downloads/p2STD/xa_26_1.sod') 
+load('./xa_26_1.sod') 
 S2 = x_a
 
 //sinal 3 - Willane
-load('/home/willane/Downloads/p2STD/xa_43_1.sod')
+load('./xa_43_1.sod')
 S3 = x_a
 
 S = [S1 S2 S3]
@@ -34,18 +34,18 @@ endfunction
 
 
 //função responsável por realizar a codificação para um sinal discretizado
-function seqPCM = codificacaoPCM(sinalDisc, min,max, qtndBits)
-	excursao = max - min
+function seqPCM = codificacaoPCM(sinalDisc, minSinal,maxSinal, qtndBits)
+	excursao = maxSinal - minSinal
 	totalNiveis = 2^(qntdBits)
-	limInferior = min+0.5*excursao/totalNiveis
+	limInferior = minSinal+0.5*excursao/totalNiveis
 	passo = excursao/numero_de_niveis
-	limSuperior = max-0.5*excursao/totalNiveis
+	limSuperior = maxSinal-0.5*excursao/totalNiveis
 	niveis =limInferior:passo: limSuperior
 
     for k=1:length(sinalDisc)
         for j=1:totalNiveis
         b(j) = abs(sinalDisc(k)-niveis(j));
-        i = find(b==min(b)) //erro
+        i = find(b==min(b))
         end
         palavra_pcm_como_string(k) = dec2bin(i-1);
         for j=1:numero_de_bits
@@ -60,12 +60,12 @@ function seqPCM = codificacaoPCM(sinalDisc, min,max, qtndBits)
 endfunction
 
 //função que realiza a quantizacao em um sinal
-function sinalQuantizado = quantizacaoMidrise(sinal,min,max,qntdBits)
-    excursao = max-min;
+function sinalQuantizado = quantizacaoMidrise(sinal,minSinal,maxSinal,qntdBits)
+    excursao = maxSinal-minSinal;
     totalNiveis = 2^(qntdBits);
-	limInferior = min+0.5*excursao/totalNiveis
+	limInferior = minSinal+0.5*excursao/totalNiveis
 	passo =excursao/totalNiveis
-	limSuperior =max-0.5*excursao/totalNiveis
+	limSuperior =maxSinal-0.5*excursao/totalNiveis
     niveis = limInferior:passo:limSuperior
 
     for k=1:length(sinal)
@@ -81,11 +81,11 @@ endfunction
 
 sinalAmostra = amostragemSinal(t,S, tempoAmostragem)
 
-min = min(sinalAmostra)
-max = max(sinalAmostra)
+minSinal = min(sinalAmostra)
+maxSinal = max(sinalAmostra)
 bits = 8
 
-sinalDiscretizado = quantizacaoMidrise(sinalAmostra,min,max,bits)
+sinalDiscretizado = quantizacaoMidrise(sinalAmostra,minSinal,maxSinal,bits)
 
 //plotar o sinal msg, amostrado e discretizado
 plot2d3(t,S) //plot do sinal mensagem
@@ -96,7 +96,7 @@ plot2d3(t,sinalDiscretizado)
 
 sinalFinal = amostragem_sinal(t,x,periodo)
 
-sequenciaPCM = codificacaoPCM(sinalDiscretizado,min,max,bits)
+sequenciaPCM = codificacaoPCM(sinalDiscretizado,minSinal,maxSinal,bits)
 
 //plotar a sequencia(tempo e amplitude)
 
