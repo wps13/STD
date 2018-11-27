@@ -81,9 +81,9 @@ endfunction
 
 sinalAmostra = amostragemSinal(t,S, tempoAmostragem)
 
-min = 
-max = 
-bits =
+min = min(sinalAmostra)
+max = max(sinalAmostra)
+bits = 8
 
 sinalDiscretizado = quantizacaoMidrise(sinalAmostra,min,max,bits)
 
