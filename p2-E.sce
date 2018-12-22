@@ -12,32 +12,21 @@ S3 = x_a
 
 S = [S1 S2 S3]
 
-N = length(S)
-
-fs=35000 //taxa de amostragem
-
-tempoAmostragem = 1/fs //período de amostragem a ser usado
-
-t = linspace(0,N/264600,N) //tempo
-
-function sinalAmostrado = amostragemSinal(tempo,sinal,tAmostragem)
-    N = length(sinal);
-    n=0;
-    for k=1:N
-        if tempo(k)>n*tAmostragem
-            sinalAmostrado(n+1) = sinal(k)
-            n=n+1    
-        end      
+function sigDelta = modDelta(sinal,tempoFim, passo, delta)
+    sigDelta(1) = 0;
+    for k=1:tempoFim/passo
+        e(k) = sinal(k) - sigDelta(k); //sinal de erro
+        e_q(k) = delta*sign(e(k)); //versão quantizada
+        sigDelta(k+1) = sigDelta(k) + e_q(k); //aprox. do sinal quantizado 
     end
-endfunction
-
-sinalAmostra = amostragemSinal(t,S, tempoAmostragem)
-
-delta =
-
-function resDelta = modDelta(sinal,delta)
-	
 
 endfunction
 
-sinalFinal = modDelta(sinalAmostra,delta)
+passo = 1e-2;
+tempoFinal = 2;
+delta = 0.1;
+
+t1 = 0 : 1/200 : 1
+sinalFinal = modDelta(S,tempoFinal,passo,delta)
+
+plot2d3(t1,sinalFinal)
